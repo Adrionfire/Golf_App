@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <title>Golf Schläger Empfehlung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top, #c8f3d8 0, #f5f7fb 45%, #dfe9f3 100%);
+        }
+
+        .app {
+            background: #ffffff;
+            padding: 20px 18px;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            max-width: 900px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 900px) {
+            .layout {
+                display: grid;
+                grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+                gap: 20px;
+            }
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .subtitle {
+            margin: 0 0 16px;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 16px 0 6px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        label {
+            font-size: 13px;
+            display: block;
+            margin-bottom: 4px;
+            color: #0f172a;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            background: #ffffff;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+        }
+
+        button {
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+            box-shadow: 0 8px 20px rgba(22, 163, 74, 0.35);
+        }
+
+        button:hover {
+            filter: brightness(1.03);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(22, 163, 74, 0.4);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+        }
+
+        .primary-button {
+            width: 100%;
+        }
+
+        .secondary-button {
+            background: #0f172a;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.35);
+            font-size: 13px;
+        }
+
+        .ghost-button {
+            background: #f8fafc;
+            color: #0f172a;
+            box-shadow: none;
+            border: 1px solid #cbd5e1;
+        }
+
+        .outline-button {
+            background: transparent;
+            color: #0f172a;
+            box-shadow: none;
+            border: 1px solid #cbd5e1;
+        }
+
+        .field-group {
+            margin-bottom: 10px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flex-row .field-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .result-empty {
+            background: transparent;
+            padding: 0;
+        }
+
+        .hint {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .small-hint {
+            margin-top: 2px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .club-list,
+        .round-section {
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+        }
+
+        th, td {
+            padding: 4px 6px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        thead {
+            background: #f1f5f9;
+        }
+
+        th {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .club-input {
+            width: 80px;
+            padding: 4px 6px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .club-input:focus {
+            border-color: #22c55e;
+            outline: none;
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25);
+        }
+
+        .club-name {
+            white-space: nowrap;
+        }
+
+        .delete-btn {
+            background: transparent;
+            border-radius: 999px;
+            border: none;
+            padding: 2px 6px;
+            box-shadow: none;
+            color: #dc2626;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #fee2e2;
+        }
+
+        .status-message {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #16a34a;
+        }
+
+        .status-error {
+            color: #dc2626;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 10px 0 6px;
+        }
+
+        .subsection {
+            margin-top: 8px;
+        }
+
+        .round-table-wrapper {
+            max-height: 360px;
+            overflow: auto;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 4px;
+        }
+
+        .round-input {
+            width: 70px;
+            font-size: 12px;
+            padding: 3px 4px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            box-sizing: border-box;
+        }
+
+        .round-input:focus {
+            border-color: #22c55e;
+            outline: none;
+        }
+
+        .round-select {
+            width: 120px;
+            font-size: 12px;
+            padding: 3px 4px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+
+        .round-summary {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
+        .round-summary strong {
+            font-weight: 600;
+        }
+
+        .round-button-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .round-button-row button {
+            flex: 1 1 30%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <h1>Golf Schläger Empfehlung</h1>
+    <p class="subtitle">
+        Distanz eingeben, Wind & Höhe berücksichtigen, Schläger wählen – Runde tracken und exportieren.
+    </p>
+
+    <div class="layout">
+        <!-- LINKER BLOCK -->
+        <div>
+            <!-- Distanz + Bedingungen -->
+            <div class="section-title">
+                Distanz & Bedingungen
+                <span class="badge">Flight-Check</span>
+            </div>
+
+            <div class="field-group">
+                <label for="distanceInput">Entfernung zur Fahne (Meter):</label>
+                <input id="distanceInput" type="number" min="1" step="1" placeholder="z.&nbsp;B. 145" />
+                <p class="hint">Gemessene Distanz vom Laser/Entfernungsmesser eintragen.</p>
+            </div>
+
+            <div class="flex-row">
+                <div class="field-group">
+                    <label for="windSelect">Wind:</label>
+                    <select id="windSelect">
+                        <option value="0">Kein/neutral</option>
+                        <option value="5">Leichter Gegenwind (+5 m)</option>
+                        <option value="10">Starker Gegenwind (+10 m)</option>
+                        <option value="-5">Leichter Rückenwind (-5 m)</option>
+                        <option value="-10">Starker Rückenwind (-10 m)</option>
+                    </select>
+                    <p class="small-hint">Daumenregel: Gegenwind = länger, Rückenwind = kürzer.</p>
+                </div>
+                <div class="field-group">
+                    <label for="heightInput">Höhenunterschied (m):</label>
+                    <input id="heightInput" type="number" step="1" placeholder="z.&nbsp;B. +5 bergauf" />
+                    <p class="small-hint">Positiv = bergauf, negativ = bergab.</p>
+                </div>
+            </div>
+
+            <button id="calcButton" class="primary-button">Schläger berechnen</button>
+
+            <div id="result" class="result-empty"></div>
+
+            <div class="divider"></div>
+
+            <!-- Schlägerweiten & Bag -->
+            <div class="section-title">
+                Deine Schlägerweiten
+                <span class="badge">Editierbar</span>
+            </div>
+            <p class="hint">
+                Passe die Distanzen an deinen persönlichen Durchschnitt an. Sie werden lokal im Browser gespeichert.
+            </p>
+
+            <div class="club-list">
+                <table id="clubTable">
+                    <thead>
+                    <tr>
+                        <th>Schläger</th>
+                        <th>Distanz (m)</th>
+                        <th>Aktion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- JS -->
+                    </tbody>
+                </table>
+                <div id="saveStatus" class="status-message" style="display:none;"></div>
+            </div>
+
+            <div class="subsection">
+                <div class="section-title">
+                    Schläger hinzufügen
+                    <span class="badge">Bag-Setup</span>
+                </div>
+                <div class="field-group">
+                    <label for="newClubNameInput">Schlägername:</label>
+                    <input id="newClubNameInput" type="text" placeholder="z.&nbsp;B. Gap Wedge, Hybrid 4" />
+                </div>
+                <div class="field-group">
+                    <label for="newClubDistanceInput">Distanz (m):</label>
+                    <input id="newClubDistanceInput" type="number" min="1" step="1" placeholder="z.&nbsp;B. 105" />
+                </div>
+                <button id="addClubButton" class="secondary-button">Schläger zum Bag hinzufügen</button>
+                <div id="addClubStatus" class="status-message" style="display:none;"></div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Bag-Check / Kalibrierung -->
+            <div class="section-title">
+                Bag-Check / Kalibrierung
+                <span class="badge">Smart</span>
+            </div>
+            <p class="hint">
+                Nach der Runde: Trage ein, was du wirklich geschlagen hast. Die App passt automatisch die Schlägerweite an.
+            </p>
+
+            <div class="subsection">
+                <div class="field-group">
+                    <label for="clubSelect">Gespielter Schläger:</label>
+                    <select id="clubSelect">
+                        <!-- JS -->
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="shotDistanceInput">Tatsächliche Distanz (m):</label>
+                    <input id="shotDistanceInput" type="number" min="1" step="1" placeholder="z.&nbsp;B. 152" />
+                    <p class="small-hint">Realistische Carry-/Gesamtdistanz dieses Schlags.</p>
+                </div>
+                <button id="saveShotButton" class="secondary-button">Bag-Check übernehmen</button>
+                <div id="calibrationStatus" class="status-message" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- RECHTER BLOCK: Runde -->
+        <div>
+            <div class="section-title">
+                Runde tracken (Loch 1–18)
+                <span class="badge">Score-Card</span>
+            </div>
+            <p class="hint">
+                Pro Loch Distanz, gespielten Schläger und Score eintragen. Exportiere die Runde als CSV.
+            </p>
+
+            <div class="round-section">
+                <div class="round-table-wrapper">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Loch</th>
+                            <th>Distanz (m)</th>
+                            <th>Schläger</th>
+                            <th>Score</th>
+                        </tr>
+                        </thead>
+                        <tbody id="roundTableBody">
+                        <!-- JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="round-button-row">
+                    <button id="analyzeRoundButton" class="secondary-button">Runde auswerten</button>
+                    <button id="exportRoundButton" class="outline-button">Runde als CSV exportieren</button>
+                    <button id="resetRoundButton" class="ghost-button">Runde zurücksetzen</button>
+                </div>
+
+                <div id="roundSummary" class="round-summary"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const defaultClubs = [
+        { name: "Driver", distance: 220 },
+        { name: "Holz 3", distance: 200 },
+        { name: "Eisen 4", distance: 180 },
+        { name: "Eisen 5", distance: 170 },
+        { name: "Eisen 6", distance: 160 },
+        { name: "Eisen 7", distance: 150 },
+        { name: "Eisen 8", distance: 140 },
+        { name: "Eisen 9", distance: 130 },
+        { name: "Pitching Wedge", distance: 110 },
+        { name: "Sand Wedge", distance: 90 }
+    ];
+
+    let clubs = [];
+
+    function loadClubs() {
+        const saved = localStorage.getItem("golfClubs");
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.every(c => c.name && typeof c.distance === "number")) {
+                    clubs = parsed;
+                    return;
+                }
+            } catch (e) {
+                console.warn("Konnte gespeicherte Clubs nicht lesen, nehme Standardwerte.", e);
+            }
+        }
+        clubs = JSON.parse(JSON.stringify(defaultClubs));
+    }
+
+    function saveClubs() {
+        localStorage.setItem("golfClubs", JSON.stringify(clubs));
+        const status = document.getElementById("saveStatus");
+        if (status) {
+            status.textContent = "Schlägerweiten gespeichert.";
+            status.style.display = "block";
+            status.classList.remove("status-error");
+            setTimeout(() => {
+                status.style.display = "none";
+            }, 2000);
+        }
+    }
+
+    function getRecommendedClub(targetDistance) {
+        let bestClub = null;
+        let bestDiff = Infinity;
+
+        for (const club of clubs) {
+            const diff = Math.abs(club.distance - targetDistance);
+            if (diff < bestDiff) {
+                bestDiff = diff;
+                bestClub = club;
+            }
+        }
+        return bestClub;
+    }
+
+    function renderClubTable() {
+        const tbody = document.querySelector("#clubTable tbody");
+        tbody.innerHTML = "";
+
+        clubs.forEach((club, index) => {
+            const tr = document.createElement("tr");
+
+            const tdName = document.createElement("td");
+            tdName.textContent = club.name;
+            tdName.className = "club-name";
+
+            const tdDist = document.createElement("td");
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min = "1";
+            input.step = "1";
+            input.value = club.distance.toString();
+            input.className = "club-input";
+            input.setAttribute("data-index", index);
+            tdDist.appendChild(input);
+
+            const tdAction = document.createElement("td");
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.className = "delete-btn";
+            delBtn.textContent = "✕";
+            delBtn.setAttribute("data-index", index);
+            tdAction.appendChild(delBtn);
+
+            tr.appendChild(tdName);
+            tr.appendChild(tdDist);
+            tr.appendChild(tdAction);
+            tbody.appendChild(tr);
+        });
+
+        tbody.querySelectorAll(".club-input").forEach(input => {
+            input.addEventListener("change", (e) => {
+                const idx = parseInt(e.target.getAttribute("data-index"), 10);
+                let val = parseInt(e.target.value, 10);
+
+                if (isNaN(val) || val <= 0) {
+                    e.target.value = clubs[idx].distance.toString();
+                    return;
+                }
+
+                clubs[idx].distance = val;
+                saveClubs();
+                renderClubSelect();
+                populateRoundClubSelects();
+            });
+        });
+
+        tbody.querySelectorAll(".delete-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const idx = parseInt(e.target.getAttribute("data-index"), 10);
+                clubs.splice(idx, 1);
+                saveClubs();
+                renderClubTable();
+                renderClubSelect();
+                populateRoundClubSelects();
+            });
+        });
+    }
+
+    function renderClubSelect() {
+        const select = document.getElementById("clubSelect");
+        if (!select) return;
+
+        select.innerHTML = "";
+        clubs.forEach((club, index) => {
+            const opt = document.createElement("option");
+            opt.value = index.toString();
+            opt.textContent = club.name;
+            select.appendChild(opt);
+        });
+    }
+
+    function renderRoundTable() {
+        const tbody = document.getElementById("roundTableBody");
+        tbody.innerHTML = "";
+
+        for (let i = 1; i <= 18; i++) {
+            const tr = document.createElement("tr");
+
+            const tdHole = document.createElement("td");
+            tdHole.textContent = i.toString();
+
+            const tdDist = document.createElement("td");
+            const distInput = document.createElement("input");
+            distInput.type = "number";
+            distInput.min = "1";
+            distInput.step = "1";
+            distInput.className = "round-input";
+            distInput.id = `round-distance-${i}`;
+            tdDist.appendChild(distInput);
+
+            const tdClub = document.createElement("td");
+            const clubSelect = document.createElement("select");
+            clubSelect.className = "round-select round-club-select";
+            clubSelect.setAttribute("data-hole", i.toString());
+            tdClub.appendChild(clubSelect);
+
+            const tdScore = document.createElement("td");
+            const scoreInput = document.createElement("input");
+            scoreInput.type = "number";
+            scoreInput.min = "1";
+            scoreInput.step = "1";
+            scoreInput.className = "round-input";
+            scoreInput.id = `round-score-${i}`;
+            tdScore.appendChild(scoreInput);
+
+            tr.appendChild(tdHole);
+            tr.appendChild(tdDist);
+            tr.appendChild(tdClub);
+            tr.appendChild(tdScore);
+            tbody.appendChild(tr);
+        }
+
+        populateRoundClubSelects();
+    }
+
+    function populateRoundClubSelects() {
+        const selects = document.querySelectorAll(".round-club-select");
+        selects.forEach(select => {
+            const prevValue = select.value;
+            select.innerHTML = "";
+
+            const emptyOpt = document.createElement("option");
+            emptyOpt.value = "";
+            emptyOpt.textContent = "-";
+            select.appendChild(emptyOpt);
+
+            clubs.forEach(club => {
+                const opt = document.createElement("option");
+                opt.value = club.name;
+                opt.textContent = club.name;
+                select.appendChild(opt);
+            });
+
+            if (prevValue) {
+                const found = Array.from(select.options).some(o => o.value === prevValue);
+                if (found) {
+                    select.value = prevValue;
+                }
+            }
+        });
+    }
+
+    function exportRoundAsCSV() {
+        let csv = "Hole,Distance,Club,Score\n";
+
+        let hasData = false;
+
+        for (let i = 1; i <= 18; i++) {
+            const distInput = document.getElementById(`round-distance-${i}`);
+            const scoreInput = document.getElementById(`round-score-${i}`);
+            const select = document.querySelector(`.round-club-select[data-hole="${i}"]`);
+
+            const distance = distInput && distInput.value ? distInput.value : "";
+            const score = scoreInput && scoreInput.value ? scoreInput.value : "";
+            const club = select && select.value ? select.value : "";
+
+            if (distance || score || club) {
+                hasData = true;
+            }
+
+            const row = [
+                i,
+                distance,
+                `"${club.replace(/"/g, '""')}"`,
+                score
+            ].join(",");
+
+            csv += row + "\n";
+        }
+
+        if (!hasData) {
+            alert("Keine Rundendaten zum Exportieren vorhanden.");
+            return;
+        }
+
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "golf_runde.csv";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const distanceInput = document.getElementById("distanceInput");
+        const windSelect = document.getElementById("windSelect");
+        const heightInput = document.getElementById("heightInput");
+        const calcButton = document.getElementById("calcButton");
+        const resultDiv = document.getElementById("result");
+
+        const shotDistanceInput = document.getElementById("shotDistanceInput");
+        const saveShotButton = document.getElementById("saveShotButton");
+        const calibrationStatus = document.getElementById("calibrationStatus");
+
+        const newClubNameInput = document.getElementById("newClubNameInput");
+        const newClubDistanceInput = document.getElementById("newClubDistanceInput");
+        const addClubButton = document.getElementById("addClubButton");
+        const addClubStatus = document.getElementById("addClubStatus");
+
+        const analyzeRoundButton = document.getElementById("analyzeRoundButton");
+        const exportRoundButton = document.getElementById("exportRoundButton");
+        const resetRoundButton = document.getElementById("resetRoundButton");
+        const roundSummary = document.getElementById("roundSummary");
+
+        loadClubs();
+        renderClubTable();
+        renderClubSelect();
+        renderRoundTable();
+
+        function showResultText(text, empty = false) {
+            resultDiv.textContent = text;
+            resultDiv.className = empty ? "result-empty" : "";
+        }
+
+        calcButton.addEventListener("click", () => {
+            const rawDistance = parseInt(distanceInput.value, 10);
+
+            if (isNaN(rawDistance) || rawDistance <= 0) {
+                showResultText("Bitte eine gültige Distanz eingeben.");
+                return;
+            }
+
+            const windAdjust = parseInt(windSelect.value, 10) || 0;
+            const heightAdjust = parseInt(heightInput.value, 10) || 0;
+
+            const effectiveDistance = rawDistance + windAdjust + heightAdjust;
+
+            const club = getRecommendedClub(effectiveDistance);
+            if (club) {
+                showResultText(
+                    `Empfehlung: ${club.name} (Ø ${club.distance} m) – effektive Distanz ca. ${effectiveDistance} m (inkl. Wind/Höhe).`
+                );
+            } else {
+                showResultText("Kein passender Schläger gefunden.");
+            }
+        });
+
+        distanceInput.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                calcButton.click();
+            }
+        });
+
+        saveShotButton.addEventListener("click", () => {
+            if (!clubs.length) return;
+
+            const idx = parseInt(document.getElementById("clubSelect").value, 10);
+            const shotDist = parseInt(shotDistanceInput.value, 10);
+
+            if (isNaN(shotDist) || shotDist <= 0) {
+                calibrationStatus.textContent = "Bitte eine gültige Distanz für den Schlag eingeben.";
+                calibrationStatus.style.display = "block";
+                calibrationStatus.classList.add("status-error");
+                setTimeout(() => {
+                    calibrationStatus.style.display = "none";
+                    calibrationStatus.classList.remove("status-error");
+                }, 2500);
+                return;
+            }
+
+            const club = clubs[idx];
+            const old = club.distance;
+
+            const updated = Math.round((old * 2 + shotDist) / 3);
+            club.distance = updated;
+
+            saveClubs();
+            renderClubTable();
+            renderClubSelect();
+            populateRoundClubSelects();
+
+            calibrationStatus.textContent = `Kalibriert: ${club.name} von ${old} m auf ${updated} m angepasst.`;
+            calibrationStatus.style.display = "block";
+            calibrationStatus.classList.remove("status-error");
+
+            setTimeout(() => {
+                calibrationStatus.style.display = "none";
+            }, 2500);
+
+            shotDistanceInput.value = "";
+        });
+
+        addClubButton.addEventListener("click", () => {
+            const name = (newClubNameInput.value || "").trim();
+            const distVal = parseInt(newClubDistanceInput.value, 10);
+
+            if (!name) {
+                addClubStatus.textContent = "Bitte einen Schlägernamen eingeben.";
+                addClubStatus.style.display = "block";
+                addClubStatus.classList.add("status-error");
+                setTimeout(() => {
+                    addClubStatus.style.display = "none";
+                    addClubStatus.classList.remove("status-error");
+                }, 2500);
+                return;
+            }
+            if (isNaN(distVal) || distVal <= 0) {
+                addClubStatus.textContent = "Bitte eine gültige Distanz eingeben.";
+                addClubStatus.style.display = "block";
+                addClubStatus.classList.add("status-error");
+                setTimeout(() => {
+                    addClubStatus.style.display = "none";
+                    addClubStatus.classList.remove("status-error");
+                }, 2500);
+                return;
+            }
+
+            clubs.push({ name: name, distance: distVal });
+            saveClubs();
+            renderClubTable();
+            renderClubSelect();
+            populateRoundClubSelects();
+
+            addClubStatus.textContent = `Schläger "${name}" hinzugefügt.`;
+            addClubStatus.style.display = "block";
+            addClubStatus.classList.remove("status-error");
+            setTimeout(() => {
+                addClubStatus.style.display = "none";
+            }, 2500);
+
+            newClubNameInput.value = "";
+            newClubDistanceInput.value = "";
+        });
+
+        analyzeRoundButton.addEventListener("click", () => {
+            let totalScore = 0;
+            let holesPlayed = 0;
+            const clubUsage = {};
+
+            for (let i = 1; i <= 18; i++) {
+                const scoreInput = document.getElementById(`round-score-${i}`);
+                const select = document.querySelector(`.round-club-select[data-hole="${i}"]`);
+                const scoreVal = parseInt(scoreInput.value, 10);
+
+                if (!isNaN(scoreVal) && scoreVal > 0) {
+                    totalScore += scoreVal;
+                    holesPlayed++;
+                }
+
+                if (select && select.value) {
+                    clubUsage[select.value] = (clubUsage[select.value] || 0) + 1;
+                }
+            }
+
+            let summaryText = "";
+
+            if (holesPlayed === 0) {
+                summaryText = "Noch keine Scores eingetragen.";
+            } else {
+                summaryText = `Gespielte Löcher: <strong>${holesPlayed}</strong>, Gesamtscore: <strong>${totalScore}</strong>`;
+            }
+
+            const usageEntries = Object.entries(clubUsage);
+            if (usageEntries.length > 0) {
+                const usageText = usageEntries
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([clubName, count]) => `${clubName}: ${count}×`)
+                    .join(", ");
+                summaryText += `<br/>Meist genutzte Schläger: <strong>${usageText}</strong>`;
+            }
+
+            roundSummary.innerHTML = summaryText;
+        });
+
+        resetRoundButton.addEventListener("click", () => {
+            for (let i = 1; i <= 18; i++) {
+                const distInput = document.getElementById(`round-distance-${i}`);
+                const scoreInput = document.getElementById(`round-score-${i}`);
+                const select = document.querySelector(`.round-club-select[data-hole="${i}"]`);
+                if (distInput) distInput.value = "";
+                if (scoreInput) scoreInput.value = "";
+                if (select) select.value = "";
+            }
+            roundSummary.innerHTML = "";
+        });
+
+        exportRoundButton.addEventListener("click", () => {
+            exportRoundAsCSV();
+        });
+
+        showResultText("", true);
+    });
+</script>
+
+</body>
+</html>
